@@ -1,4 +1,4 @@
-<?php
+ <?php
 /*
  * Add Featured column in Admin post list
  */
