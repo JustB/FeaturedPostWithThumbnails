@@ -70,7 +70,13 @@ class Featured_posts extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
-		extract($args);
+        /**
+         * @var $before_title string
+         * @var $after_title string
+         * @var $before_widget string
+         * @var $after_widget string
+         */
+        extract($args, EXTR_SKIP);
 		$arguments = array(
 			 'title' => $instance['title'],
 			 'numberposts' => $instance['showposts'],
