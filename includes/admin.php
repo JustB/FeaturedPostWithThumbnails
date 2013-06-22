@@ -1,4 +1,4 @@
- <?php
+<?php
 /*
  * Add Featured column in Admin post list
  */
@@ -24,3 +24,4 @@ function yiw_featured_column($column_name, $id) {
         }
     }
 }
+?>

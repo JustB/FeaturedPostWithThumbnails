@@ -70,9 +70,9 @@ load_plugin_textdomain(YIW_TEXT_DOMAIN, false, $language_files_path);
  */
 $featured_post_plugin_path = plugins_url('featured-posts');
 
-require_once 'includes/yiw-featured-post-widget.php';
-require_once 'includes/metabox.php';
-require_once 'includes/admin.php';
+require_once YIW_PLUGIN_DIR_PATH . '/includes/yiw-featured-post-widget.php';
+require_once YIW_PLUGIN_DIR_PATH . '/includes/metabox.php';
+include YIW_PLUGIN_DIR_PATH . '/includes/admin.php';
 
 
 
@@ -164,11 +164,6 @@ function featured_posts_YIW($args = null) {
 }
 
 /* END featured_posts_YIW */
-
-
-
-
-
 
 function yiw_add_widget_script(){
 	global $featured_post_plugin_path;
