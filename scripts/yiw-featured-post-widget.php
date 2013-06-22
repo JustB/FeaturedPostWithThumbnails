@@ -2,22 +2,9 @@
 /**
  * WIDGET SECTION
  * ----------------------------------------------------------------------- */
-/* /
 
-
-
-/*
- * Aggiungiamo la nostra funzione al gancio widgets_init
- * Add our function to widgets_init hook
- */
-add_action('widgets_init', 'my_widget_featured_posts');
-
-/*
- * Funzione che registra il nostro widget
- * Register our widget
- */
-
-function my_widget_featured_posts() {
+add_action('widgets_init', 'yiw_widget_featured_posts');
+function yiw_widget_featured_posts() {
 	register_widget('Featured_posts');
 }
 
@@ -32,8 +19,7 @@ class Featured_posts extends WP_Widget {
 	 *
 	 * @var string widget description
 	 */
-	private $description = "This widget allows you to add in your blog's sidebar
-a list of featured posts.";
+	private $description = '';
 	/**
 	 *
 	 * @var integer widget width
@@ -48,7 +34,7 @@ a list of featured posts.";
 	 *
 	 * @var string widget title
 	 */
-	private $widgetName = 'Featured Posts';
+	private $widgetName = '';
 	/**
 	 *
 	 * @var integer default thumbnails width
@@ -64,6 +50,10 @@ a list of featured posts.";
 	 * Costruttore.
 	 */
 	function __construct() {
+        $this->description = __("This widget allows you to add in your blog's sidebar a list of featured posts.",
+            YIW_TEXT_DOMAIN);
+        $this->widgetName = __('Featured Posts', YIW_TEXT_DOMAIN);
+
         parent::__construct(
             $this->classname,
             __($this->widgetName, YIW_TEXT_DOMAIN),
