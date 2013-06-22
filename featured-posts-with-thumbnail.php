@@ -168,16 +168,7 @@ function featured_posts_YIW($args = null) {
 
 
 /*
- * aggiunge colonna nella pagina modifica dei post
- *
- * Il filtro 'manage_posts_columns' permette di aggiungere o rimuovere una
- * colonna dalla sezione "Modifica Post".
- * Per aggiungerla, basta fare come sotto,
- * ovvero aggiungere un elemento all'array $defaults, che ha come valore
- * l'intestazione della colonna.
- * Per rimuoverla si può usare unset($defaults['nomeColonna'])
- *
- * È molto importante ritornare l'array $defaults, come per tutti i filter
+ * Add Featured column in Admin post list
  */
 add_filter('manage_posts_columns', 'yiw_add_column');
 
@@ -194,15 +185,11 @@ add_action('manage_posts_custom_column', 'yiw_featured_column', 10, 2);
 
 function yiw_featured_column($column_name, $id) {
 	if ( $column_name == 'yiw-featured' ) {
-		global $wpdb;
-		$queryStr = 'SELECT meta_value FROM ' . $wpdb->prefix . 'postmeta ';
-		$queryStr .= 'WHERE meta_key="_yiw_featured_post" and post_id=' . $id;
-		$result = $wpdb->get_results($queryStr, ARRAY_A);
-		if ( isset($result[0]) && ($result[0]['meta_value'] == '1') ) {
-			_e("Yes", YIW_TEXT_DOMAIN);
-		} else {
-			_e("No", YIW_TEXT_DOMAIN);
-		}
+        if(get_post_meta($id, '_yiw_featured_post', true)) {
+            _e("Yes", YIW_TEXT_DOMAIN);
+        } else {
+            _e("No", YIW_TEXT_DOMAIN);
+        }
 	}
 }
 
