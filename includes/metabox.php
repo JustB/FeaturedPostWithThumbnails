@@ -17,7 +17,7 @@ function YIW_post_box() {
     global $post;
     $yes = '';
     $no = '';
-    $featured = get_post_meta($post->ID, 'featured', 1);
+    $featured = get_post_meta($post->ID, 'featured', true);
     if ( $featured ) {
         $yes = 'selected="selected"';
     } else {
