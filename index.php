@@ -189,9 +189,6 @@ function yiw_add_column($defaults) {
 /*
  * Recupera dal database tutti i post che hanno il custom field featured
  * attivato
- * FIXME mi sono accorto che il nome del nostro custom field, featured, è
- * veramente troppo comune. Bisognerebbe cambiarlo e metterlo in una variabile
- * però così facendo, bisognerebbe aggiornare tutti i post
  */
 add_action('manage_posts_custom_column', 'yiw_featured_column', 10, 2);
 
@@ -199,7 +196,7 @@ function yiw_featured_column($column_name, $id) {
 	if ( $column_name == 'yiw-featured' ) {
 		global $wpdb;
 		$queryStr = 'SELECT meta_value FROM ' . $wpdb->prefix . 'postmeta ';
-		$queryStr .= 'WHERE meta_key="featured" and post_id=' . $id;
+		$queryStr .= 'WHERE meta_key="_yiw_featured_post" and post_id=' . $id;
 		$result = $wpdb->get_results($queryStr, ARRAY_A);
 		if ( isset($result[0]) && ($result[0]['meta_value'] == '1') ) {
 			_e("Yes", YIW_TEXT_DOMAIN);

@@ -17,7 +17,7 @@ function YIW_featured_post_metabox()
 function YIW_post_box()
 {
     global $post;
-    $is_featured = get_post_meta($post->ID, 'featured', true) ? 'yes' : 'no';
+    $is_featured = get_post_meta($post->ID, '_yiw_featured_post', true) ? 'yes' : 'no';
     include(plugin_dir_path(__FILE__) . '/../views/metabox.php');
 }
 
@@ -29,13 +29,14 @@ function YIW_post_box()
  */
 function YIW_add_featured($post_ID)
 {
+    //TODO POST validation
     $articolo = get_post($post_ID);
     if (isset($_POST['insert_featured_post'])) {
         if ($_POST['insert_featured_post'] == 'yes') {
-            update_post_meta($articolo->ID, 'featured', 1);
+            update_post_meta($articolo->ID, '_yiw_featured_post', 1);
         }
         elseif ($_POST['insert_featured_post'] == 'no') {
-            delete_post_meta($articolo->ID, 'featured');
+            delete_post_meta($articolo->ID, '_yiw_featured_post');
         }
     }
 }
