@@ -29,16 +29,22 @@ function YIW_post_box()
  */
 function YIW_add_featured($post_ID)
 {
-    //TODO POST validation
-    $articolo = get_post($post_ID);
     if (isset($_POST['insert_featured_post'])) {
         if ($_POST['insert_featured_post'] == 'yes') {
-            update_post_meta($articolo->ID, '_yiw_featured_post', 1);
+            YIW_set_featured_post($post_ID);
         }
         elseif ($_POST['insert_featured_post'] == 'no') {
-            delete_post_meta($articolo->ID, '_yiw_featured_post');
+            YIW_unset_featured_post($post_ID);
         }
     }
+}
+
+function YIW_set_featured_post($post_id) {
+    update_post_meta($post_id, '_yiw_featured_post', 1);
+}
+
+function YIW_unset_featured_post($post_id) {
+    delete_post_meta($post_id, '_yiw_featured_post');
 }
 
 add_action('new_to_publish', 'YIW_add_featured');
