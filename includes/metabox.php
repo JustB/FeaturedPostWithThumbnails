@@ -23,15 +23,9 @@ function YIW_post_box() {
     } else {
         $no = 'selected="selected"';
     }
-    echo '<label for="insert_featured_post">' .
-        __('Featured post?', YIW_TEXT_DOMAIN) . '</label>';
-    echo '<select name="insert_featured_post" id="insert_featured_post">';
-    echo '<option value="yes" ' . $yes . ' >' .
-        __('Yes', YIW_TEXT_DOMAIN) . '</option>';
-    echo '<option value="no" ' . $no . ' >' .
-        __('No ', YIW_TEXT_DOMAIN) . '</option>';
-    echo '</select>';
+    include( plugin_dir_path(__FILE__) . '/../views/metabox.php');
 }
+
 
 /**
  * Add/remove featured custom field
