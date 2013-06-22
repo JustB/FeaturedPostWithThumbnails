@@ -105,7 +105,7 @@ function catch_that_image() {
    if($num_images > 0) {
        $first_img = $matches[1][0];
    } else {
-      $first_img = $featured_post_plugin_path . "images/default.gif";
+      $first_img = $featured_post_plugin_path . "/images/default.gif";
    }
 
    return $first_img;
