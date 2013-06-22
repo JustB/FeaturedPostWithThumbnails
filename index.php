@@ -90,27 +90,6 @@ function YIW_featured_post_css() {
 }
 add_action('wp_print_styles', 'YIW_featured_post_css');
 
-
-/**
- * Returns the first image in the post
- *
- */
-function catch_that_image() {
-   global $post, $posts, $featured_post_plugin_path;
-   $first_img = '';
-   ob_start();
-   ob_end_clean();
-   $num_images = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
-
-   if($num_images > 0) {
-       $first_img = $matches[1][0];
-   } else {
-      $first_img = $featured_post_plugin_path . "/images/default.gif";
-   }
-
-   return $first_img;
-}       
-
 /**
  * Mostra i post in evidenza
  * Show featured posts using unordered list
@@ -181,32 +160,7 @@ function featured_posts_YIW($args = null) {
 		$get_posts_query .= '&orderby=' . $orderby;
 	}
 	$featured_posts = get_posts($get_posts_query);
-    var_dump($featured_posts);
-	?>
-	
-	<ul id="yiw-featured-post">
-<?php foreach($featured_posts as $post) :
-setup_postdata($post);
-?>
-	   <li>
-	       <a href="<?php the_permalink() ?>" class="featured-thumb">
-	       <?php if ( (function_exists('the_post_thumbnail')) && (has_post_thumbnail()) ) : 
-               $image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' ); ?>
-               <img src="<?php echo $featured_post_plugin_path ?>scripts/timthumb.php?src=<?php echo $image[0] ?>&amp;h=<?php echo $height_thumb ?>&amp;w=<?php echo $width_thumb ?>&amp;zc=1" class="alignleft" alt="<?php the_title(); ?>" />
-           
-	       <?php else : ?>
-	           <img src="<?php echo $featured_post_plugin_path ?>scripts/timthumb.php?src=<?php echo catch_that_image() ?>&amp;h=<?php echo $height_thumb ?>&amp;w=<?php echo $width_thumb ?>&amp;zc=1" class="alignleft" alt="<?php the_title(); ?>" />
-	       <?php endif; ?>
-	       </a>
-           
-           <h4 class="featured-title">
-	           <a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
-	       </h4>
-	   </li>
-<?php endforeach; ?>
-	</ul>
-	
-	<?php
+    include( plugin_dir_path(__FILE__) . '/views/featured-posts-list.php');
 }
 
 /* END featured_posts_YIW */
