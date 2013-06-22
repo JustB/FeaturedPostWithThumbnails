@@ -165,12 +165,15 @@ function featured_posts_YIW($args = null) {
 
 /* END featured_posts_YIW */
 
-function yiw_add_widget_script(){
+function yiw_add_admin_widget_script(){
 	global $featured_post_plugin_path;
-    wp_enqueue_script('yiw_widget_script', $featured_post_plugin_path . 'js/yiw_widget_script.js', 
+    wp_enqueue_script(
+        'yiw_widget_script',
+        $featured_post_plugin_path . '/js/yiw_widget_script.js',
         array('jquery'),
         false,
-        true);
+        true
+    );
 }
-add_action('admin_head', 'yiw_add_widget_script');
+add_action('admin_enqueue_scripts', 'yiw_add_admin_widget_script');
 ?>
