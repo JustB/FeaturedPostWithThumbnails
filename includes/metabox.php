@@ -17,12 +17,7 @@ function YIW_post_box() {
     global $post;
     $yes = '';
     $no = '';
-    $featured = get_post_meta($post->ID, 'featured', true);
-    if ( $featured ) {
-        $yes = 'selected="selected"';
-    } else {
-        $no = 'selected="selected"';
-    }
+    $is_featured = get_post_meta($post->ID, 'featured', true) ? 'yes' : 'no';
     include( plugin_dir_path(__FILE__) . '/../views/metabox.php');
 }
 
