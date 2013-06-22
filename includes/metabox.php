@@ -1,7 +1,7 @@
 <?php
-add_action('admin_menu', 'my_post_options_box');
+add_action('admin_menu', 'YIW_featured_post_metabox');
 
-function my_post_options_box()
+function YIW_featured_post_metabox()
 {
     add_meta_box('post_info',
         __('Featured', YIW_TEXT_DOMAIN),
