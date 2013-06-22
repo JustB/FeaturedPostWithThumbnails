@@ -63,18 +63,20 @@ a list of featured posts.";
 	/**
 	 * Costruttore.
 	 */
-	function Featured_posts() {
-		/* Impostazione del widget */
-		$widget_ops = array('classname' => $this->classname,
-			 'description' => __($this->description));
-
-		/* Impostazioni di controllo del widget */
-		$control_ops = array('width' => $this->width, 'height' => $this->height,
-			 'id_base' => $this->classname);
-
-		/* Creiamo il widget */
-		$this->WP_Widget($this->classname,
-				  __($this->widgetName, YIW_TEXT_DOMAIN), $widget_ops, $control_ops);
+	function __construct() {
+        parent::__construct(
+            $this->classname,
+            __($this->widgetName, YIW_TEXT_DOMAIN),
+            array(
+                'classname' => $this->classname,
+                'description' => __($this->description)
+            ),
+            array(
+                'width' => $this->width,
+                'height' => $this->height,
+                'id_base' => $this->classname
+            )
+        );
 	}
 
 	function widget($args, $instance) {
