@@ -72,6 +72,7 @@ $featured_post_plugin_path = plugins_url('featured-posts');
 
 require_once 'includes/yiw-featured-post-widget.php';
 require_once 'includes/metabox.php';
+require_once 'includes/admin.php';
 
 
 
