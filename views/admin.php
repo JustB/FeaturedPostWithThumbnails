@@ -27,28 +27,17 @@
 
 
 <p>
-    <label for="<?php $this->get_field_id('orderby') ?>">
+    <label for="<?php $this->get_field_id('order-by') ?>">
         <?php _e('Choose type of order:', YIW_TEXT_DOMAIN) ?>
     </label>
-    <select name="<?php $this->get_field_name('orderby') ?>" id="<?php echo $this->get_field_id('orderby') ?>">
-        <option class="level-0" value="rand" <?php selected($instance['orderby'], 'random') ?>>
-            <?php _e('Random', YIW_TEXT_DOMAIN) ?>
-        </option>
-        <option class="level-0" value="title" <?php selected($instance['orderby'], 'title') ?>>
-            <?php _e('Title', YIW_TEXT_DOMAIN) ?>
-        </option>
-        <option class="level-0" value="date" <?php selected($instance['orderby'], 'date') ?>>
-            <?php _e('Date', YIW_TEXT_DOMAIN) ?>
-        </option>
-        <option class="level-0" value="author" <?php selected($instance['orderby'], 'author') ?>>
-            <?php _e('Author', YIW_TEXT_DOMAIN) ?>
-        </option>
-        <option class="level-0" value="modified" <?php selected($instance['orderby'], 'modified') ?>>
-            <?php _e('Modified', YIW_TEXT_DOMAIN) ?>
-        </option>
-        <option class="level-0" value="ID" <?php selected($instance['orderby'], 'ID') ?>>
-            <?php _e('ID', YIW_TEXT_DOMAIN) ?>
-        </option>
+    <select id="<?php echo $this->get_field_id('order-by'); ?>"
+            name="<?php echo $this->get_field_name('order-by'); ?>">
+        <option class="level-0" value="rand" <?php selected('rand', $instance['order-by'], true); ?>><?php _e('Random', YIW_TEXT_DOMAIN); ?></option>
+        <option class="level-0" value="title" <?php selected('title', $instance['order-by'], true); ?>><?php _e('Title', YIW_TEXT_DOMAIN); ?></option>
+        <option class="level-0" value="date" <?php selected('date', $instance['order-by'], true) ?>><?php _e('Date', YIW_TEXT_DOMAIN) ?></option>
+        <option class="level-0" value="author" <?php selected('author', $instance['order-by'], true) ?>><?php _e('Author', YIW_TEXT_DOMAIN) ?></option>
+        <option class="level-0" value="modified" <?php selected('modified', $instance['order-by'], true) ?>><?php _e('Modified', YIW_TEXT_DOMAIN) ?></option>
+        <option class="level-0" value="ID" <?php selected('ID', $instance['order-by'], true) ?>><?php _e('ID', YIW_TEXT_DOMAIN) ?></option>
     </select>
 </p>
 
@@ -92,3 +81,5 @@
             <?php endforeach; ?>
     </select>
 </p>
+
+    <?php var_dump($instance); ?>

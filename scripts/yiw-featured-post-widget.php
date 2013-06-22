@@ -84,7 +84,7 @@ a list of featured posts.";
 		$arguments = array(
 			 'title' => $instance['title'],
 			 'numberposts' => $instance['showposts'],
-			 'orderby' => $instance['orderby'],
+			 'order-by' => $instance['order-by'],
 			 'widththumb' => $instance['width-thumb'],
 			 'heightthumb' => $instance['height-thumb'],
 			 'beforetitle' => $before_title,
@@ -100,29 +100,33 @@ a list of featured posts.";
 	}
 
 	function update($new_instance, $old_instance) {
-		$instance = $old_instance;
 		/* Strip tags (if needed) and update the widget settings. */
-		$instance['title'] = strip_tags($new_instance['title']);
-		$instance['showposts'] = $new_instance['showposts'];
-		$instance['orderby'] = $new_instance['orderby'];
-		$instance['width-thumb'] = $new_instance['width-thumb'];
-		$instance['height-thumb'] = $new_instance['height-thumb'];
-		$instance['show'] = $new_instance['show'];
-		$instance['category'] = $new_instance['category'];
-		return $instance;
+		$old_instance['title'] = strip_tags($new_instance['title']);
+		$old_instance['showposts'] = $new_instance['showposts'];
+		$old_instance['order-by'] = $new_instance['order-by'];
+		$old_instance['width-thumb'] = $new_instance['width-thumb'];
+		$old_instance['height-thumb'] = $new_instance['height-thumb'];
+		$old_instance['show'] = $new_instance['show'];
+		$old_instance['category'] = $new_instance['category'];
+		return $old_instance;
 	}
 
 	public function form($instance) {
 		/* Impostazioni di default del nostro widget */
 		$defaults = array(
 			 'title' => __($this->widgetName, YIW_TEXT_DOMAIN),
-			 'showposts' => '', 'orderby' => '',
+			 'showposts' => '',
+             'order-by' => 'ID',
 			 'width-thumb' => $this->defaultThumbWidth,
 			 'height-thumb' => $this->defaultThumbHeight,
 			 'show' => 'featured',
-			 'category' => 'uncategorized');
+			 'category' => 'uncategorized'
+        );
 
-		$instance = wp_parse_args((array) $instance, $defaults);
+		$instance = wp_parse_args(
+            (array) $instance,
+            $defaults
+        );
 		include( plugin_dir_path(__FILE__) . '/../views/admin.php');
 	}
 
