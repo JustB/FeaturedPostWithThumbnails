@@ -1,17 +1,36 @@
-function hideShowCat(){
-	var $cat = jQuery('#widget-widget_featured-posts-4-category'),
-		$show = jQuery('#widget-widget_featured-posts-4-show'),
-		$selected = jQuery("#widget-widget_featured-posts-4-show option:selected");
-		
-	if($selected.text() == "Featured") $cat.hide();
-	
-	$show.change(function () {
-		jQuery("#widget-widget_featured-posts-4-show option:selected").each(function() {
-			(jQuery(this).text() == 'Category') ? $cat.show() : $cat.hide();
+function hideShowCat($, $widgetForm) {
+    'use strict';
+	var $cat = $('.yiw_featured_post_category:first', $widgetForm),
+		$show = $('.yiw_featured_post_show:first', $widgetForm),
+		$selected = $('option:selected', $show);
+
+	if ($selected.text().indexOf("Featured") > 0) {
+        console.log('YEAH');
+        $cat.hide();
+    }
+    $show.change(function () {
+		$('option:selected', $show).each(function () {
+			if ($(this).text().indexOf("Category") > 0) { $cat.show(); } else { $cat.hide(); }
 		});
-		
 	});
 }
 
-jQuery(document).ready(hideShowCat).ajaxSuccess(hideShowCat);
+function updateCategorySelects($, $widgetForms) {
+    'use strict';
+    $widgetForms.each(function () {
+        hideShowCat($, $(this));
+    });
+}
+
+(function ($) {
+    'use strict';
+    $(function () {
+        updateCategorySelects($, $('.yiw_featured_post_widget'));
+    });
+
+    $(document).ajaxSuccess(function () {
+        updateCategorySelects($, $('.yiw_featured_post_widget'));
+    });
+
+}(jQuery));
 
