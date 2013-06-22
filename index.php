@@ -181,6 +181,7 @@ function featured_posts_YIW($args = null) {
 		$get_posts_query .= '&orderby=' . $orderby;
 	}
 	$featured_posts = get_posts($get_posts_query);
+    var_dump($featured_posts);
 	?>
 	
 	<ul id="yiw-featured-post">

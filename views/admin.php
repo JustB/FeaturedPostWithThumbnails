@@ -71,11 +71,11 @@
 </p>
 <p id="yiw_featured_post_category">
     <label for="<?php echo $this->get_field_id('category') ?>"><?php _e('Category', YIW_TEXT_DOMAIN) ?></label>
-    <select id="<?php $this->get_field_id('category') ?>" name="<?php $this->get_field_name('category') ?>">
+    <select id="<?php echo $this->get_field_id('category') ?>" name="<?php echo $this->get_field_name('category') ?>">
         <?php
         $categories = get_categories();
         foreach ($categories as $c): ?>
-            <option value="<?php echo $c->cat_ID ?>" <?php selected($instance['category'], $c->cat_ID) ?>>
+            <option value="<?php echo $c->cat_ID ?>" <?php selected($c->cat_ID, $instance['category'], true) ?>>
                 <?php echo $c->name ?>
             </option>
             <?php endforeach; ?>
