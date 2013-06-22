@@ -97,11 +97,11 @@ class Featured_posts extends WP_Widget {
 
 	function update($new_instance, $old_instance) {
 		/* Strip tags (if needed) and update the widget settings. */
-		$old_instance['title'] = strip_tags($new_instance['title']);
+		$old_instance['title'] = strip_tags(stripslashes($new_instance['title']));
 		$old_instance['showposts'] = $new_instance['showposts'];
 		$old_instance['order-by'] = $new_instance['order-by'];
-		$old_instance['width-thumb'] = $new_instance['width-thumb'];
-		$old_instance['height-thumb'] = $new_instance['height-thumb'];
+		$old_instance['width-thumb'] = strip_tags(stripslashes($new_instance['width-thumb']));
+		$old_instance['height-thumb'] = strip_tags(stripslashes($new_instance['height-thumb']));
 		$old_instance['show'] = $new_instance['show'];
 		$old_instance['category'] = $new_instance['category'];
 		return $old_instance;
