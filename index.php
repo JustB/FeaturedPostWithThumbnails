@@ -35,7 +35,7 @@
 /**
  * Load Widget
  */
-require_once 'scripts/yiw-featured-post-widget.php';
+require_once 'includes/yiw-featured-post-widget.php';
 
 /*==============================================================================
  * Definizioni costanti
