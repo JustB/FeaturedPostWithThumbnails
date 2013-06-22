@@ -38,7 +38,7 @@ a list of featured posts.";
 	 *
 	 * @var integer widget width
 	 */
-	private $width = 300;
+	private $width = 200;
 	/**
 	 *
 	 * @var integer widget height
