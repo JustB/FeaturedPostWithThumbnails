@@ -32,10 +32,6 @@
  */
 
 
-/**
- * Load Widget
- */
-require_once 'includes/yiw-featured-post-widget.php';
 
 /*==============================================================================
  * Definizioni costanti
@@ -73,6 +69,11 @@ load_plugin_textdomain(YIW_TEXT_DOMAIN, false, $language_files_path);
  * Determine plugin path
  */
 $featured_post_plugin_path = plugins_url('featured-posts');
+
+require_once 'includes/yiw-featured-post-widget.php';
+require_once 'includes/metabox.php';
+
+
 
 /**
  * Add thumbnail support to the theme, if wordpress version is appropriate
