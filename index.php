@@ -33,26 +33,65 @@
 
 
 /**
- * Load configuration files
+ * Load Widget
  */
-require_once 'scripts/config.php';
 require_once 'scripts/yiw-featured-post-widget.php';
 
+/*==============================================================================
+ * Definizioni costanti
+ *============================================================================*/
+
+/* Constants definitions for WP < 2.6
+ * http://codex.wordpress.org/Determining_Plugin_and_Content_Directories
+ */
+if ( !defined('WP_CONTENT_URL') ) {
+    define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
+}
+
+if ( !defined('WP_CONTENT_DIR') ) {
+    define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
+}
+
+if ( !defined('WP_PLUGIN_URL') ) {
+    define('WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins');
+}
+
+if ( !defined('WP_PLUGIN_DIR') ) {
+    define('WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins');
+}
+
+define('YIW_TEXT_DOMAIN', 'featured-post');
+define('YIW_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
+
+/*
+* add translate language
+*/
+$language_files_path = dirname(plugin_basename(__FILE__)) . '/language';
+load_plugin_textdomain(YIW_TEXT_DOMAIN, false, $language_files_path);
+
 /**
- * Aggiunge il CSS del plugin
+ * Determine plugin path
+ */
+$featured_post_plugin_path = plugins_url('featured-posts');
+
+/**
+ * Add thumbnail support to the theme, if wordpress version is appropriate
+ */
+if ( function_exists('add_theme_support') ) {
+    add_theme_support('post-thumbnails');
+}
+
+/**
  * Enqueue plugin CSS file
  */
 function YIW_featured_post_css() {
 	global $featured_post_plugin_path;
-	wp_enqueue_style('featured-post-css',
-			  $featured_post_plugin_path . 'featured-post.css');
+	wp_enqueue_style('featured-post', $featured_post_plugin_path . '/featured-post.css');
 }
-
-add_action('wp_print_styles', 'YIW_featured_post_css');  
+add_action('wp_print_styles', 'YIW_featured_post_css');
 
 
 /**
- * Recupera la prima immagine del post
  * Returns the first image in the post
  *
  */

@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $this Featured_posts
- * @var $instance Featured_posts
+ * @var $instance array Widget options
  */
 ?>
 <p>
@@ -81,5 +81,3 @@
             <?php endforeach; ?>
     </select>
 </p>
-
-    <?php var_dump($instance); ?>
