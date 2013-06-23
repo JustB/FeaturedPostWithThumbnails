@@ -2,14 +2,14 @@
 /*
  * @package Featured Posts
  * @author Nando Pappalardo e Giustino Borzacchiello
- * @version 1.5.2
+ * @version {{VERSIONE}}
  */
 /*
   Plugin Name: Featured Post with thumbnail
   Plugin URI: http://www.yourinspirationweb.com/en/wordpress-plugin-featured-posts-with-thumbnails-highlighting-your-best-articles/
   Description: This widget allows you to add in your blog's sidebar a list of featured post with thumbanil.
   Author: Nando Pappalardo e Giustino Borzacchiello
-  Version: 1.5.2
+  Version: {{VERSIONE}}
   Author URI: http://en.yourinspirationweb.com/
 
   USAGE:

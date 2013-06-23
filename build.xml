@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="FooBar" default="testTask">
+
+    <fileset dir="." id="fileset1">
+      <include name="*.php" />
+    </fileset>
+
+    <target name="testTask">
+        <reflexive>
+            <fileset dir=".">
+                <include name="**/*.php"/>
+            </fileset>
+            <filterchain>
+                <replacetokens begintoken="{{" endtoken="}}">
+                    <token key="VERSIONE" value="1.5.2" />
+                </replacetokens>
+            </filterchain>
+        </reflexive>
+    </target>
+</project>
