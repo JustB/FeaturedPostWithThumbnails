@@ -124,7 +124,7 @@ class Featured_Posts_With_Thumbnail
     {
         global $post;
         $is_featured = get_post_meta($post->ID, '_yiw_featured_post', true) ? 'yes' : 'no';
-        echo Featured_Posts_With_Thumbnail::render(
+        echo self::render(
             plugin_dir_path(__FILE__) . '/views/metabox.php',
             array(
                 'is_featured' => $is_featured
@@ -163,10 +163,10 @@ class Featured_Posts_With_Thumbnail
      */
     public static function echo_posts_list($args = null)
     {
-        echo Featured_Posts_With_Thumbnail::render(
+        echo self::render(
             plugin_dir_path(__FILE__) . '/views/featured-posts-list.php',
             array(
-                'featured_posts' => Featured_Posts_With_Thumbnail::get_featured_posts($args)
+                'featured_posts' => self::get_featured_posts($args)
             )
         );
     }
