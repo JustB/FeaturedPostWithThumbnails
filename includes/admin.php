@@ -1,5 +1,10 @@
 <?php
 /*
+ * @package Featured Posts
+ * @author Nando Pappalardo e Giustino Borzacchiello
+ * @version {{VERSIONE}}
+ */
+/*
  * Add Featured column in Admin post list
  */
 add_filter('manage_posts_columns', 'fpwt_add_featured_column');

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @package Featured Posts
+ * @author Nando Pappalardo e Giustino Borzacchiello
+ * @version {{VERSIONE}}
+ */
+?>
 <ul id="yiw-featured-post">
     <?php foreach($featured_posts as $post) :
     setup_postdata($post);

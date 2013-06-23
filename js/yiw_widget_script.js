@@ -1,3 +1,8 @@
+/*
+ * @package Featured Posts
+ * @author Nando Pappalardo e Giustino Borzacchiello
+ * @version {{VERSIONE}}
+ */
 function hideShowCat($, $widgetForm) {
     'use strict';
 	var $cat = $('.yiw_featured_post_category:first', $widgetForm),

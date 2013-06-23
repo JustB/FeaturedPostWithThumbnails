@@ -1,7 +1,9 @@
 <?php
-/**
- * WIDGET SECTION
- * ----------------------------------------------------------------------- */
+/*
+ * @package Featured Posts
+ * @author Nando Pappalardo e Giustino Borzacchiello
+ * @version {{VERSIONE}}
+ */
 
 class Featured_Posts_Widget extends WP_Widget {
 

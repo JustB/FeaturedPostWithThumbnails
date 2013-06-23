@@ -1,5 +1,10 @@
 <?php
 /**
+ *
+ * @package Featured Posts
+ * @author Nando Pappalardo e Giustino Borzacchiello
+ * @version {{VERSIONE}}
+ *
  * @var $this Featured_Posts_Widget
  * @var $instance array Widget options
  */
