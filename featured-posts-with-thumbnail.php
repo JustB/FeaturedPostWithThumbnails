@@ -119,6 +119,11 @@ class Featured_Posts_With_Thumbnail {
      */
     public static function echo_posts_list($args = null) {
 
+        $featured_posts = Featured_Posts_With_Thumbnail::get_featured_posts($args);
+            include( plugin_dir_path(__FILE__) . '/views/featured-posts-list.php');
+    }
+
+    private static function get_featured_posts($args = null) {
         $defaults = array(
             'title' => 'Featured Posts',
             'numberposts' => 5,
@@ -168,8 +173,7 @@ class Featured_Posts_With_Thumbnail {
             $get_posts_query .= '&numberposts=' . $showposts;
             $get_posts_query .= '&orderby=' . $orderby;
         }
-        $featured_posts = get_posts($get_posts_query);
-        include( plugin_dir_path(__FILE__) . '/views/featured-posts-list.php');
+        return get_posts($get_posts_query);
     }
 }
 
