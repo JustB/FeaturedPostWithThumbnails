@@ -8,7 +8,7 @@ function yiw_widget_featured_posts() {
 	register_widget('Featured_posts');
 }
 
-class Featured_posts extends WP_Widget {
+class Featured_Posts_Widget extends WP_Widget {
 
 	/**
 	 *
