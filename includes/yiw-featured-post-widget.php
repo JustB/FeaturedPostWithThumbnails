@@ -3,9 +3,9 @@
  * WIDGET SECTION
  * ----------------------------------------------------------------------- */
 
-add_action('widgets_init', 'yiw_widget_featured_posts');
-function yiw_widget_featured_posts() {
-	register_widget('Featured_posts');
+add_action('widgets_init', 'fpwt_register_widget');
+function fpwt_register_widget() {
+	register_widget('Featured_Posts_Widget');
 }
 
 class Featured_Posts_Widget extends WP_Widget {
@@ -127,5 +127,5 @@ class Featured_Posts_Widget extends WP_Widget {
 
 }
 
-//end class Featured_posts
+//end class Featured_Posts_Widget
 ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this Featured_posts
+ * @var $this Featured_Posts_Widget
  * @var $instance array Widget options
  */
 ?>
