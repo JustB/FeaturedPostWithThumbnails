@@ -60,7 +60,6 @@ define('FPWT_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('FPWT_PLUGIN_URL', plugins_url('featured-posts'));
 
 require_once FPWT_PLUGIN_PATH . '/includes/yiw-featured-post-widget.php';
-require_once FPWT_PLUGIN_PATH . '/includes/metabox.php';
 require_once FPWT_PLUGIN_PATH . '/includes/admin.php';
 
 
@@ -73,6 +72,10 @@ class Featured_Posts_With_Thumbnail
         if (function_exists('add_theme_support')) {
             add_theme_support('post-thumbnails');
         }
+
+        add_action('admin_menu', array($this, 'register_featured_metabox'));
+        add_action('new_to_publish', array($this, 'set_unset_featured_post'));
+        add_action('save_post', array($this, 'set_unset_featured_post'));
 
         add_action('wp_enqueue_scripts', array($this, 'register_styles'));
         add_action('admin_enqueue_scripts', array($this, 'register_admin_scripts'));
@@ -105,6 +108,42 @@ class Featured_Posts_With_Thumbnail
     public function register_widget()
     {
         register_widget('Featured_Posts_Widget');
+    }
+
+    public function register_featured_metabox()
+    {
+        add_meta_box('post_info',
+            __('Featured', YIW_TEXT_DOMAIN),
+            array($this, 'render_featured_metabox'),
+            'post',
+            'side',
+            'high');
+    }
+
+    public function render_featured_metabox()
+    {
+        global $post;
+        $is_featured = get_post_meta($post->ID, '_yiw_featured_post', true) ? 'yes' : 'no';
+        echo Featured_Posts_With_Thumbnail::render(
+            plugin_dir_path(__FILE__) . '/views/metabox.php',
+            array(
+                'is_featured' => $is_featured
+            )
+        );
+    }
+
+    public function set_unset_featured_post($post_ID)
+    {
+        //TODO POST validation
+        $articolo = get_post($post_ID);
+        if (isset($_POST['insert_featured_post'])) {
+            if ($_POST['insert_featured_post'] == 'yes') {
+                update_post_meta($articolo->ID, '_yiw_featured_post', 1);
+            }
+            elseif ($_POST['insert_featured_post'] == 'no') {
+                delete_post_meta($articolo->ID, '_yiw_featured_post');
+            }
+        }
     }
 
     /**
@@ -186,7 +225,8 @@ class Featured_Posts_With_Thumbnail
         return get_posts($get_posts_query);
     }
 
-    public static function render($path, $data) {
+    public static function render($path, $data)
+    {
         ($data) ? extract($data, EXTR_SKIP) : null;
 
         ob_start();
