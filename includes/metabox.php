@@ -18,7 +18,14 @@ function fpwt_render_metabox()
 {
     global $post;
     $is_featured = get_post_meta($post->ID, '_yiw_featured_post', true) ? 'yes' : 'no';
-    include(plugin_dir_path(__FILE__) . '/../views/metabox.php');
+    echo Featured_Posts_With_Thumbnail::render(
+        plugin_dir_path(__FILE__) . '/../views/metabox.php',
+        array(
+            'is_featured' => $is_featured
+        )
+    );
+
+
 }
 
 

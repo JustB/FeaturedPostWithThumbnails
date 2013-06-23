@@ -112,7 +112,7 @@ class Featured_Posts_Widget extends WP_Widget {
 			 'show' => 'featured',
 			 'category' => 'uncategorized'
         );
-
+        //TODO vedere se possibile utilizzare render per includere questo template
 		$instance = wp_parse_args(
             (array) $instance,
             $defaults

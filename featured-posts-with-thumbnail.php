@@ -124,9 +124,12 @@ class Featured_Posts_With_Thumbnail
      */
     public static function echo_posts_list($args = null)
     {
-
-        $featured_posts = Featured_Posts_With_Thumbnail::get_featured_posts($args);
-        include(plugin_dir_path(__FILE__) . '/views/featured-posts-list.php');
+        echo Featured_Posts_With_Thumbnail::render(
+            plugin_dir_path(__FILE__) . '/views/featured-posts-list.php',
+            array(
+                'featured_posts' => Featured_Posts_With_Thumbnail::get_featured_posts($args)
+            )
+        );
     }
 
     private static function get_featured_posts($args = null)
@@ -181,6 +184,17 @@ class Featured_Posts_With_Thumbnail
             );
         }
         return get_posts($get_posts_query);
+    }
+
+    public static function render($path, $data) {
+        ($data) ? extract($data, EXTR_SKIP) : null;
+
+        ob_start();
+        include($path);
+        $template = ob_get_contents();
+        ob_end_clean();
+
+        return $template;
     }
 }
 
