@@ -57,8 +57,8 @@ if ( !defined('WP_PLUGIN_DIR') ) {
 }
 
 define('YIW_TEXT_DOMAIN', 'featured-post');
-define('YIW_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
-
+define('FPWT_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('FPWT_PLUGIN_URL', plugins_url('featured-posts'));
 /*
 * add translate language
 */
@@ -70,11 +70,9 @@ load_plugin_textdomain(YIW_TEXT_DOMAIN, false, $language_files_path);
  */
 $featured_post_plugin_path = plugins_url('featured-posts');
 
-require_once YIW_PLUGIN_DIR_PATH . '/includes/yiw-featured-post-widget.php';
-require_once YIW_PLUGIN_DIR_PATH . '/includes/metabox.php';
-include YIW_PLUGIN_DIR_PATH . '/includes/admin.php';
-
-
+require_once FPWT_PLUGIN_PATH . '/includes/yiw-featured-post-widget.php';
+require_once FPWT_PLUGIN_PATH . '/includes/metabox.php';
+require_once FPWT_PLUGIN_PATH . '/includes/admin.php';
 
 /**
  * Add thumbnail support to the theme, if wordpress version is appropriate
