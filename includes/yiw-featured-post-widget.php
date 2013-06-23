@@ -3,11 +3,6 @@
  * WIDGET SECTION
  * ----------------------------------------------------------------------- */
 
-add_action('widgets_init', 'fpwt_register_widget');
-function fpwt_register_widget() {
-	register_widget('Featured_Posts_Widget');
-}
-
 class Featured_Posts_Widget extends WP_Widget {
 
 	/**
@@ -90,7 +85,7 @@ class Featured_Posts_Widget extends WP_Widget {
 		);
 		/* Before widget (definito dal tema). */
 		echo $before_widget;
-		fpwt_echo_posts_list($arguments);
+		Featured_Posts_With_Thumbnail::echo_posts_list($arguments);
 		echo $after_widget;
 	}
 
