@@ -79,10 +79,22 @@ if ( function_exists('add_theme_support') ) {
 /**
  * Enqueue plugin CSS file
  */
-function YIW_featured_post_css() {
+function fpwt_register_styles() {
 	wp_enqueue_style('featured-post', FPWT_PLUGIN_URL . '/featured-post.css');
 }
-add_action('wp_print_styles', 'YIW_featured_post_css');
+add_action('wp_enqueue_scripts', 'fpwt_register_styles');
+
+function fpwt_register_admin_scripts(){
+    wp_enqueue_script(
+        'yiw_widget_script',
+        FPWT_PLUGIN_URL . '/js/yiw_widget_script.js',
+        array('jquery'),
+        false,
+        true
+    );
+}
+add_action('admin_enqueue_scripts', 'fpwt_register_admin_scripts');
+
 
 /**
  * Mostra i post in evidenza
@@ -99,7 +111,7 @@ add_action('wp_print_styles', 'YIW_featured_post_css');
  * 		beforetitle => opening tag before for title
  * 		aftertittle => closing tag for title
  */
-function featured_posts_YIW($args = null) {
+function fpwt_echo_posts_list($args = null) {
 
 	$defaults = array(
 		 'title' => 'Featured Posts',
@@ -154,16 +166,6 @@ function featured_posts_YIW($args = null) {
     include( plugin_dir_path(__FILE__) . '/views/featured-posts-list.php');
 }
 
-/* END featured_posts_YIW */
+/* END fpwt_echo_posts_list */
 
-function yiw_add_admin_widget_script(){
-    wp_enqueue_script(
-        'yiw_widget_script',
-        FPWT_PLUGIN_URL . '/js/yiw_widget_script.js',
-        array('jquery'),
-        false,
-        true
-    );
-}
-add_action('admin_enqueue_scripts', 'yiw_add_admin_widget_script');
 ?>

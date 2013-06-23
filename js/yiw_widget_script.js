@@ -5,7 +5,6 @@ function hideShowCat($, $widgetForm) {
 		$selected = $('option:selected', $show);
 
 	if ($selected.text().indexOf("Featured") > 0) {
-        console.log('YEAH');
         $cat.hide();
     }
     $show.change(function () {

@@ -90,7 +90,7 @@ class Featured_posts extends WP_Widget {
 		);
 		/* Before widget (definito dal tema). */
 		echo $before_widget;
-		featured_posts_YIW($arguments);
+		fpwt_echo_posts_list($arguments);
 		echo $after_widget;
 	}
 
