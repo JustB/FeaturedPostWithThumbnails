@@ -1,11 +1,11 @@
 <?php
-add_action('admin_menu', 'YIW_featured_post_metabox');
+add_action('admin_menu', 'fpwt_register_metabox');
 
-function YIW_featured_post_metabox()
+function fpwt_register_metabox()
 {
     add_meta_box('post_info',
         __('Featured', YIW_TEXT_DOMAIN),
-        'YIW_post_box',
+        'fpwt_render_metabox',
         'post',
         'side',
         'high');
@@ -14,7 +14,7 @@ function YIW_featured_post_metabox()
 /**
  * Shows featured form in "Write Post" section
  */
-function YIW_post_box()
+function fpwt_render_metabox()
 {
     global $post;
     $is_featured = get_post_meta($post->ID, '_yiw_featured_post', true) ? 'yes' : 'no';
@@ -27,7 +27,7 @@ function YIW_post_box()
  *
  * @param integer $post_ID
  */
-function YIW_add_featured($post_ID)
+function fpwt_set_unset_featured_post($post_ID)
 {
     //TODO POST validation
     $articolo = get_post($post_ID);
@@ -41,5 +41,5 @@ function YIW_add_featured($post_ID)
     }
 }
 
-add_action('new_to_publish', 'YIW_add_featured');
-add_action('save_post', 'YIW_add_featured');
+add_action('new_to_publish', 'fpwt_set_unset_featured_post');
+add_action('save_post', 'fpwt_set_unset_featured_post');
