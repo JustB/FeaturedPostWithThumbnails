@@ -32,7 +32,6 @@
  */
 
 
-
 /*==============================================================================
  * Definizioni costanti
  *============================================================================*/
@@ -40,19 +39,19 @@
 /* Constants definitions for WP < 2.6
  * http://codex.wordpress.org/Determining_Plugin_and_Content_Directories
  */
-if ( !defined('WP_CONTENT_URL') ) {
+if (!defined('WP_CONTENT_URL')) {
     define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
 }
 
-if ( !defined('WP_CONTENT_DIR') ) {
+if (!defined('WP_CONTENT_DIR')) {
     define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
 }
 
-if ( !defined('WP_PLUGIN_URL') ) {
+if (!defined('WP_PLUGIN_URL')) {
     define('WP_PLUGIN_URL', WP_CONTENT_URL . '/plugins');
 }
 
-if ( !defined('WP_PLUGIN_DIR') ) {
+if (!defined('WP_PLUGIN_DIR')) {
     define('WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins');
 }
 
@@ -65,11 +64,13 @@ require_once FPWT_PLUGIN_PATH . '/includes/metabox.php';
 require_once FPWT_PLUGIN_PATH . '/includes/admin.php';
 
 
-class Featured_Posts_With_Thumbnail {
-    function __construct() {
+class Featured_Posts_With_Thumbnail
+{
+    function __construct()
+    {
         add_action('init', array($this, 'plugin_textdomain'));
 
-        if ( function_exists('add_theme_support') ) {
+        if (function_exists('add_theme_support')) {
             add_theme_support('post-thumbnails');
         }
 
@@ -78,17 +79,20 @@ class Featured_Posts_With_Thumbnail {
         add_action('widgets_init', array($this, 'register_widget'));
     }
 
-    public function plugin_textdomain() {
+    public function plugin_textdomain()
+    {
         $language_files_path = dirname(plugin_basename(__FILE__)) . '/language';
         load_plugin_textdomain(YIW_TEXT_DOMAIN, false, $language_files_path);
     }
 
-    public function register_styles() {
+    public function register_styles()
+    {
         wp_enqueue_style('featured-post', FPWT_PLUGIN_URL . '/featured-post.css');
 
     }
 
-    public function register_admin_scripts() {
+    public function register_admin_scripts()
+    {
         wp_enqueue_script(
             'yiw_widget_script',
             FPWT_PLUGIN_URL . '/js/yiw_widget_script.js',
@@ -98,7 +102,8 @@ class Featured_Posts_With_Thumbnail {
         );
     }
 
-    public function register_widget() {
+    public function register_widget()
+    {
         register_widget('Featured_Posts_Widget');
     }
 
@@ -109,50 +114,46 @@ class Featured_Posts_With_Thumbnail {
      * @param mixed $args
      *
      * $args:
-     * 		title => the title displayed
-     * 		numberposts => number of featured posts shown
-     * 		orderby => order type: http://codex.wordpress.org/Template_Tags/get_posts
-     * 		widththumb => width of post's thumbnail
-     * 		heightthumb => height of post's thumbnail
-     * 		beforetitle => opening tag before for title
-     * 		aftertittle => closing tag for title
+     *         title => the title displayed
+     *         numberposts => number of featured posts shown
+     *         orderby => order type: http://codex.wordpress.org/Template_Tags/get_posts
+     *         widththumb => width of post's thumbnail
+     *         heightthumb => height of post's thumbnail
+     *         beforetitle => opening tag before for title
+     *         aftertittle => closing tag for title
      */
-    public static function echo_posts_list($args = null) {
+    public static function echo_posts_list($args = null)
+    {
 
         $featured_posts = Featured_Posts_With_Thumbnail::get_featured_posts($args);
-            include( plugin_dir_path(__FILE__) . '/views/featured-posts-list.php');
+        include(plugin_dir_path(__FILE__) . '/views/featured-posts-list.php');
     }
 
-    private static function get_featured_posts($args = null) {
-        $defaults = array(
-            'title' => 'Featured Posts',
-            'numberposts' => 5,
-            'orderby' => 'DESC',
-            'widththumb' => 73,
-            'heightthumb' => 73,
-            'beforetitle' => '<h3>',
-            'aftertitle' => '</h3>',
-            'show' => 'featured',
-            'category' => 'uncategorized'
-        );
+    private static function get_featured_posts($args = null)
+    {
 
         /**
          *  Merging default values with user selected settings
          */
-        $fp = wp_parse_args($args, $defaults);
-        $title = $fp['title'];
-        $showposts = $fp['numberposts'];
-        $orderby = $fp['orderby'];
-        $width_thumb = $fp['widththumb'];
-        $height_thumb = $fp['heightthumb'];
-        $before_title = $fp['beforetitle'];
-        $after_title = $fp['aftertitle'];
-        $show = $fp['show'];
-        $cat_ID = $fp['category'];
+        $fp = wp_parse_args(
+            $args,
+            array(
+                'title' => 'Featured Posts',
+                'numberposts' => 5,
+                'orderby' => 'DESC',
+                'widththumb' => 73,
+                'heightthumb' => 73,
+                'beforetitle' => '<h3>',
+                'aftertitle' => '</h3>',
+                'show' => 'featured',
+                'category' => 'uncategorized'
+            )
+        );
+        //TODO inserire widththumb e heightthumb
 
         /* List's title */
-        if ( !empty($title) ) {
-            echo $before_title . $title . $after_title;
+        if (!empty($fp['title'])) {
+            echo $fp['beforetitle'] . $fp['title'] . $fp['aftertitle'];
         }
 
         /*
@@ -163,15 +164,21 @@ class Featured_Posts_With_Thumbnail {
          * Info: http://codex.wordpress.org/Template_Tags/get_posts
          *
          */
-        global $post;
-        if ( (strcmp($show, 'category') == 0 ) && ($cat_ID)) {
-            $get_posts_query = 'category=' . $cat_ID;
-            $get_posts_query .= '&numberposts=' . $showposts;
-            $get_posts_query .= '&orderby=' . $orderby;
-        } else {
-            $get_posts_query = 'meta_key=featured&meta_value=1';
-            $get_posts_query .= '&numberposts=' . $showposts;
-            $get_posts_query .= '&orderby=' . $orderby;
+        if ((strcmp($fp['show'], 'category') == 0) && ($fp['category'])) {
+            $get_posts_query = array(
+                'category' => $fp['category'],
+                'numberposts' => $fp['numberposts'],
+                'orderby' => $fp['orderby']
+            );
+        }
+        else {
+            //TODO mettere la meta_key in un attributo
+            $get_posts_query = array(
+                'meta_key' => '_yiw_featured_post',
+                'meta_value' => 1,
+                'numberposts' => $fp['numberposts'],
+                'orderby' => $fp['orderby']
+            );
         }
         return get_posts($get_posts_query);
     }
