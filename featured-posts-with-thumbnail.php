@@ -65,11 +65,6 @@ define('FPWT_PLUGIN_URL', plugins_url('featured-posts'));
 $language_files_path = dirname(plugin_basename(__FILE__)) . '/language';
 load_plugin_textdomain(YIW_TEXT_DOMAIN, false, $language_files_path);
 
-/**
- * Determine plugin path
- */
-$featured_post_plugin_path = plugins_url('featured-posts');
-
 require_once FPWT_PLUGIN_PATH . '/includes/yiw-featured-post-widget.php';
 require_once FPWT_PLUGIN_PATH . '/includes/metabox.php';
 require_once FPWT_PLUGIN_PATH . '/includes/admin.php';
@@ -85,8 +80,7 @@ if ( function_exists('add_theme_support') ) {
  * Enqueue plugin CSS file
  */
 function YIW_featured_post_css() {
-	global $featured_post_plugin_path;
-	wp_enqueue_style('featured-post', $featured_post_plugin_path . '/featured-post.css');
+	wp_enqueue_style('featured-post', FPWT_PLUGIN_URL . '/featured-post.css');
 }
 add_action('wp_print_styles', 'YIW_featured_post_css');
 
@@ -107,7 +101,6 @@ add_action('wp_print_styles', 'YIW_featured_post_css');
  */
 function featured_posts_YIW($args = null) {
 
-	global $featured_post_plugin_path;
 	$defaults = array(
 		 'title' => 'Featured Posts',
 		 'numberposts' => 5,
@@ -164,10 +157,9 @@ function featured_posts_YIW($args = null) {
 /* END featured_posts_YIW */
 
 function yiw_add_admin_widget_script(){
-	global $featured_post_plugin_path;
     wp_enqueue_script(
         'yiw_widget_script',
-        $featured_post_plugin_path . '/js/yiw_widget_script.js',
+        FPWT_PLUGIN_URL . '/js/yiw_widget_script.js',
         array('jquery'),
         false,
         true

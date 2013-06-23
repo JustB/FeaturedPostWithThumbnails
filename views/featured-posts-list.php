@@ -7,7 +7,7 @@
             <?php if ( function_exists('the_post_thumbnail') && has_post_thumbnail() ) : ?>
             <img src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' ) ?>" class="alignleft" alt="<?php the_title(); ?>" />
             <?php else: ?>
-            <img src="<?php echo $featured_post_plugin_path . '/images/default.gif' ?>" class="alignleft" alt="<?php the_title(); ?>" />
+            <img src="<?php echo FPWT_PLUGIN_URL . '/images/default.gif' ?>" class="alignleft" alt="<?php the_title(); ?>" />
             <?php endif; ?>
         </a>
 

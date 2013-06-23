@@ -88,7 +88,6 @@ class Featured_posts extends WP_Widget {
 			 'show' => $instance['show'],
 			 'category' => $instance['category']
 		);
-		global $featured_post_plugin_path;
 		/* Before widget (definito dal tema). */
 		echo $before_widget;
 		featured_posts_YIW($arguments);
