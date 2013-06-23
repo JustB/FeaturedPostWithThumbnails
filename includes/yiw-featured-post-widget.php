@@ -3,8 +3,8 @@
  * WIDGET SECTION
  * ----------------------------------------------------------------------- */
 
-add_action('widgets_init', 'yiw_widget_featured_posts');
-function yiw_widget_featured_posts() {
+add_action('widgets_init', 'fpwt_register_widget');
+function fpwt_register_widget() {
 	register_widget('Featured_posts');
 }
 
