@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="FooBar" default="testTask">
+<project name="FeaturedPost" default="build">
 
-    <fileset dir="." id="fileset1">
-      <include name="*.php" />
+    <fileset dir="." id="buildJS">
+      <include name="./build/**/*.js" />
     </fileset>
 
-    <target name="testTask">
+    <fileset dir="." id="all">
+        <include name="**/**"/>
+        <exclude name=".git/**"/>
+        <exclude name="build/**" />
+        <exclude name=".idea/**" />
+        <exclude name=".git" />
+        <exclude name="build.xml" />
+    </fileset>
+
+    <target name="prepare">
+        <echo msg="Preparing build dir.." />
+        <mkdir dir="./build" />
+        <copy todir="./build">
+            <fileset refid="all" />
+        </copy>
+    </target>
+
+    <target name="clean">
+        <delete dir="./build" includeemptydirs="true" verbose="true" failonerror="true" />
+    </target>
+
+    <target name="build" depends="prepare">
+        <propertyprompt propertyName="versione" defaultValue="1.0"
+        promptText="Enter version number" />
         <reflexive>
-            <fileset dir=".">
-                <include name="**/*.php"/>
+            <fileset dir="./build">
+                <include name="**/**"/>
             </fileset>
             <filterchain>
                 <replacetokens begintoken="{{" endtoken="}}">
-                    <token key="VERSIONE" value="1.5.2" />
+                    <token key="VERSIONE" value="${versione}" />
                 </replacetokens>
             </filterchain>
         </reflexive>
+
+        <jsMin targetDir="./build" failOnError="false">
+            <fileset dir=".">
+                <include name="js/*.js"/>
+            </fileset>
+        </jsMin>
+
+        <zip destfile="./build/FeaturedPostsWithThumbnail-${versione}.zip" basedir="./build"/>
+
     </target>
 </project>
