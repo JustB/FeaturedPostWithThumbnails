@@ -6,8 +6,7 @@
  */
 ?>
 <ul id="yiw-featured-post">
-    <?php foreach($featured_posts as $post) :
-    setup_postdata($post);
+    <?php while( $featured_posts->have_posts() ) : $featured_posts->the_post();
     ?>
     <li>
         <a href="<?php the_permalink() ?>" class="featured-thumb">
@@ -22,5 +21,5 @@
             <a href="<?php the_permalink() ?>"><?php the_title(); ?></a>
         </h4>
     </li>
-    <?php endforeach; ?>
+    <?php endwhile; ?>
 </ul>

@@ -40,7 +40,7 @@
  * http://codex.wordpress.org/Determining_Plugin_and_Content_Directories
  */
 if (!defined('WP_CONTENT_URL')) {
-    define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
+    define('WP_CONTENT_URL', site_url() . '/wp-content');
 }
 
 if (!defined('WP_CONTENT_DIR')) {
@@ -222,7 +222,7 @@ class Featured_Posts_With_Thumbnail
                 'orderby' => $fp['orderby']
             );
         }
-        return get_posts($get_posts_query);
+        return WP_Query($get_posts_query);
     }
 
     public static function render($path, $data)
@@ -231,8 +231,7 @@ class Featured_Posts_With_Thumbnail
 
         ob_start();
         include($path);
-        $template = ob_get_contents();
-        ob_end_clean();
+        $template = ob_get_clean();
 
         return $template;
     }
