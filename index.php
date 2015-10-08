@@ -121,7 +121,7 @@ a list of featured posts.";
 	/**
 	 * Costruttore.
 	 */
-	function __construct() {
+	public function __construct() {
 		/* Impostazione del widget */
 		$widget_ops = array(
 			'classname'   => $this->classname,
@@ -136,11 +136,16 @@ a list of featured posts.";
 		);
 
 		/* Creiamo il widget */
-		parent::__construct( $this->classname,
-			__( $this->widgetName, 'featured-post' ), $widget_ops, $control_ops );
+		parent::__construct( $this->classname, __( $this->widgetName, 'featured-post' ), $widget_ops, $control_ops );
 	}
 
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
+		/**
+		 * @var $before_title
+		 * @var $after_title
+		 * @var $before_widget
+		 * @var $after_widget
+		 */
 		extract( $args );
 		$arguments = array(
 			'title'       => $instance['title'],
@@ -171,51 +176,6 @@ a list of featured posts.";
 		$instance['category']     = $new_instance['category'];
 
 		return $instance;
-	}
-
-	private function showTitleForm( $instance ) {
-		echo '<p>';
-		echo '<label for="' . $this->get_field_id( 'title' ) . '">' .
-		     _e( 'Title:', 'featured-post' ) . '</label>';
-		echo '<input id="' . $this->get_field_id( 'title' ) . '" name="' .
-		     $this->get_field_name( 'title' ) . '" value="' . $instance['title'] .
-		     '" style="width:100%;" class="widefat" />';
-		echo '</p>';
-	}
-
-	private function showNumberPostsForm( $instance ) {
-		echo '<p>';
-		echo '<label for="' . $this->get_field_id( 'showposts' ) . '">' .
-		     _e( 'How many posts do you want to display?', 'featured-post' ) . '</label>';
-		echo '<select name="' . $this->get_field_name( 'showposts' ) .
-		     '" id="' . $this->get_field_id( 'showposts' ) . '" >';
-		for ( $i = 0; $i <= 100; $i ++ ) {
-			echo '<option class="level-0" value="' . $i . '"' . selected( $instance['showposts'], $i ) . '>' . $i . '</option>';
-		}
-		echo '</select>';
-		echo '</p>';
-	}
-
-	private function showOrderTypeForm( $instance ) {
-		echo '<p>';
-		echo '<label for="' . $this->get_field_id( 'orderby' ) . '">' .
-		     __( 'Choose type of order:', 'featured-post' ) . '</label>';
-		echo '<select name="' . $this->get_field_name( 'orderby' ) . '" id="' .
-		     $this->get_field_id( 'orderby' ) . '" >';
-		echo '<option class="level-0" value="rand" ' . selected( $instance['orderby'], 'random' ) . ' >' .
-		     __( 'Random', 'featured-post' ) . '</option>';
-		echo '<option class="level-0" value="title" ' . selected( $instance['orderby'], 'title' ) . ' >' .
-		     __( 'Title', 'featured-post' ) . '</option>';
-		echo '<option class="level-0" value="date" ' . selected( $instance['orderby'], 'date' ) . ' >' .
-		     __( 'Date', 'featured-post' ) . '</option>';
-		echo '<option class="level-0" value="author" ' . selected( $instance['orderby'], 'author' ) . ' >' .
-		     __( 'Author', 'featured-post' ) . '</option>';
-		echo '<option class="level-0" value="modified" ' . selected( $instance['orderby'], 'modified' ) . ' >' .
-		     __( 'Modified', 'featured-post' ) . '</option>';
-		echo '<option class="level-0" value="ID" ' . selected( $instance['orderby'], 'ID' ) . ' >' .
-		     __( 'ID', 'featured-post' ) . '</option>';
-		echo '</select>';
-		echo '</p>';
 	}
 
 	/**
@@ -272,9 +232,54 @@ a list of featured posts.";
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
-		$this->showTitleForm( $instance );
-		$this->showNumberPostsForm( $instance );
-		$this->showOrderTypeForm( $instance );
+		?>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'title' ) ?>"><?php _e( 'Title', 'featured-post' ); ?>:</label>
+			<input id="<?php echo $this->get_field_id( 'title' ) ?>"
+			       name="<?php echo $this->get_field_name( 'title' ) ?>"
+			       value="<?php echo $instance['title'] ?>" style="width:100%;" class="widefat">
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'showposts' ); ?>">
+				<?php _e( 'How many posts do you want to display?', 'featured-post' ); ?>
+			</label>
+			<select name="<?php echo $this->get_field_name( 'showposts' ); ?>"
+			        id="<?php echo $this->get_field_id( 'showposts' ) ?>">
+				<?php
+				for ( $i = 0; $i <= 100; $i ++ ) {
+					printf( '<option class="level-0" value="%s" %s>%s</option>',
+						$i, selected( $instance['showposts'], $i ), $i );
+				}
+				?>
+			</select>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'orderby' ); ?>">
+				<?php _e( 'Choose type of order:', 'featured-post' ) ?>
+			</label>
+			<select name="<?php echo $this->get_field_name( 'orderby' ); ?>"
+			        id="<?php echo $this->get_field_id( 'orderby' ) ?>">
+				<option class="level-0" value="rand" <?php echo selected( $instance['orderby'], 'random' ); ?>>
+					<?php _e( 'Random', 'featured-post' ); ?>
+				</option>
+				<option class="level-0" value="title" <?php echo selected( $instance['orderby'], 'title' ); ?>>
+					<?php _e( 'Title', 'featured-post' ); ?>
+				</option>
+				<option class="level-0" value="date" <?php echo selected( $instance['orderby'], 'date' ); ?>>
+					<?php _e( 'Date', 'featured-post' ); ?>
+				</option>
+				<option class="level-0" value="author" <?php echo selected( $instance['orderby'], 'author' ); ?>>
+					<?php _e( 'Author', 'featured-post' ); ?>
+				</option>
+				<option class="level-0" value="modified" <?php echo selected( $instance['orderby'], 'modified' ); ?>>
+					<?php _e( 'Modified', 'featured-post' ); ?>
+				</option>
+				<option class="level-0" value="ID" <?php echo selected( $instance['orderby'], 'ID' ); ?>>
+					<?php _e( 'ID', 'featured-post' ); ?>
+				</option>
+			</select>
+		</p>
+		<?php
 		$this->showWidthHeightForm( $instance );
 		$this->showFeaturedOrCategory( $instance );
 	}
@@ -296,7 +301,7 @@ add_action( 'wp_enqueue_scripts', 'YIW_featured_post_css' );
  *
  */
 function catch_that_image() {
-	global $post, $posts;
+	global $post;
 
 	$num_images = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
 
@@ -392,7 +397,7 @@ function featured_posts_YIW( $args = null ) {
 
 					<?php else :
 						$img = wp_get_image_editor( catch_that_image() );
-						if( ! is_wp_error( $img ) ) {
+						if ( ! is_wp_error( $img ) ) {
 							$img->resize( $width_thumb, $height_thumb );
 						}
 
@@ -471,14 +476,6 @@ add_action( 'save_post', 'YIW_add_featured' );
 /*
  * aggiunge colonna nella pagina modifica dei post
  *
- * Il filtro 'manage_posts_columns' permette di aggiungere o rimuovere una
- * colonna dalla sezione "Modifica Post".
- * Per aggiungerla, basta fare come sotto,
- * ovvero aggiungere un elemento all'array $defaults, che ha come valore
- * l'intestazione della colonna.
- * Per rimuoverla si può usare unset($defaults['nomeColonna'])
- *
- * È molto importante ritornare l'array $defaults, come per tutti i filter
  */
 add_filter( 'manage_posts_columns', 'yiw_add_column' );
 
@@ -491,9 +488,6 @@ function yiw_add_column( $defaults ) {
 /*
  * Recupera dal database tutti i post che hanno il custom field featured
  * attivato
- * FIXME mi sono accorto che il nome del nostro custom field, featured, è
- * veramente troppo comune. Bisognerebbe cambiarlo e metterlo in una variabile
- * però così facendo, bisognerebbe aggiornare tutti i post
  */
 add_action( 'manage_posts_custom_column', 'yiw_featured_column', 10, 2 );
 
